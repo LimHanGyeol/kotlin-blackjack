@@ -12,12 +12,9 @@ class PlayerResult(
         val dealer = gamers.getDealer()
         val players = gamers.getPlayers()
         for (player in players) {
-            val playerResult = when (dealer.judgeGameResult(player)) {
-                DealerResultType.WIN -> player.lose()
-                DealerResultType.PUSH -> player.push()
-                DealerResultType.LOSE -> player.win()
-            }
-            playerResults.add(playerResult)
+            val playerResult = dealer.judgeGameResult(player).opposite()
+            player.judgeResult(playerResult)
+            playerResults.add(player)
         }
         return playerResults.toList()
     }

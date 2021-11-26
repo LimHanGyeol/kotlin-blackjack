@@ -37,13 +37,13 @@ class BlackjackController(
     private fun play(preparedGamers: Gamers): Gamers {
         val playPlayersResult = playPlayers(preparedGamers.getPlayers())
         val playDealerResult = playDealer(preparedGamers.getDealer())
-        val blackjackResult = listOf(playDealerResult) + playPlayersResult
-        OutputView.printBlackjackResult(blackjackResult)
-        return Gamers.from(blackjackResult)
+        val gamers = Gamers.from(playDealerResult, playPlayersResult)
+        OutputView.printBlackjackResult(gamers.value)
+        return gamers
     }
 
-    private fun playPlayers(players: List<Player>): List<Gamer> {
-        val completedBlackjackPlayers = mutableListOf<Gamer>()
+    private fun playPlayers(players: List<Player>): List<Player> {
+        val completedBlackjackPlayers = mutableListOf<Player>()
 
         for (player in players) {
             while (true) {
@@ -64,7 +64,7 @@ class BlackjackController(
         return completedBlackjackPlayers
     }
 
-    private fun playDealer(dealer: Dealer): Gamer {
+    private fun playDealer(dealer: Dealer): Dealer {
         val preparedCurrentScore = dealer.currentScore()
         OutputView.printCurrentDealerScore(preparedCurrentScore)
         while (true) {

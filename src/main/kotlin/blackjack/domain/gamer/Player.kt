@@ -2,18 +2,17 @@ package blackjack.domain.gamer
 
 import blackjack.domain.deck.Cards
 import blackjack.domain.deck.Deck
+import blackjack.domain.result.ResultType
 import blackjack.domain.state.Blackjack
 import blackjack.domain.state.FirstDraw
 import blackjack.domain.state.Stand
 import blackjack.domain.state.State
-import blackjack.domain.state.result.Lose
-import blackjack.domain.state.result.Push
-import blackjack.domain.state.result.Win
 
 class Player private constructor(
     name: String,
     state: State,
-) : Gamer(name, state) {
+    result: ResultType? = null,
+) : Gamer(name, state, result) {
 
     init {
         validateName(name)
@@ -40,16 +39,8 @@ class Player private constructor(
         return Player(name, currentState)
     }
 
-    fun win(): Player {
-        return Player(name, Win)
-    }
-
-    fun push(): Player {
-        return Player(name, Push)
-    }
-
-    fun lose(): Player {
-        return Player(name, Lose)
+    fun judgeResult(result: ResultType?) {
+        this.result = result
     }
 
     fun isBlackjack(): Boolean = cards.isBlackjack()

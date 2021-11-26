@@ -5,7 +5,9 @@ import blackjack.domain.deck.Cards
 import blackjack.domain.deck.Deck
 import blackjack.domain.deck.Denomination
 import blackjack.domain.deck.Suit
-import blackjack.domain.result.DealerResultType
+import blackjack.domain.result.ResultType.LOSE
+import blackjack.domain.result.ResultType.PUSH
+import blackjack.domain.result.ResultType.WIN
 import blackjack.domain.state.Blackjack
 import blackjack.domain.state.Bust
 import blackjack.domain.state.Deal
@@ -118,7 +120,7 @@ class DealerTest {
         val actual = sut.judgeGameResult(player)
 
         // Assert
-        assertThat(actual).isEqualTo(DealerResultType.WIN)
+        assertThat(actual).isEqualTo(WIN)
     }
 
     @Test
@@ -133,7 +135,7 @@ class DealerTest {
         val actual = sut.judgeGameResult(player)
 
         // Assert
-        assertThat(actual).isEqualTo(DealerResultType.PUSH)
+        assertThat(actual).isEqualTo(PUSH)
     }
 
     @Test
@@ -148,7 +150,7 @@ class DealerTest {
         val actual = sut.judgeGameResult(player)
 
         // Assert
-        assertThat(actual).isEqualTo(DealerResultType.LOSE)
+        assertThat(actual).isEqualTo(LOSE)
     }
 
     private fun createCardsFixture(firstDenomination: Denomination, secondDenomination: Denomination): Cards {

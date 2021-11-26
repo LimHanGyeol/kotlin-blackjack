@@ -57,7 +57,7 @@ class OutputView {
             println("\n## 최종 승패")
             println("딜러: ${getDealerResult(dealerResult)}")
             for (player in players) {
-                println("${player.name}: ${player.result()}")
+                println("${player.name}: ${player.result}")
             }
         }
 

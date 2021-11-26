@@ -1,9 +1,9 @@
 package blackjack.domain.result
 
 import blackjack.domain.gamer.Player
-import blackjack.domain.state.result.Lose
-import blackjack.domain.state.result.Push
-import blackjack.domain.state.result.Win
+import blackjack.domain.result.ResultType.LOSE
+import blackjack.domain.result.ResultType.PUSH
+import blackjack.domain.result.ResultType.WIN
 
 class DealerResult private constructor(
     val win: Int = 0,
@@ -15,13 +15,13 @@ class DealerResult private constructor(
 
         fun from(playerResults: List<Player>): DealerResult {
             return playerResults.groupingBy {
-                it.state
+                it.result
             }.eachCount()
                 .run {
                     DealerResult(
-                        this[Lose] ?: DEFAULT,
-                        this[Push] ?: DEFAULT,
-                        this[Win] ?: DEFAULT,
+                        this[LOSE] ?: DEFAULT,
+                        this[PUSH] ?: DEFAULT,
+                        this[WIN] ?: DEFAULT,
                     )
                 }
         }

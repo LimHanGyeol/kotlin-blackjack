@@ -8,11 +8,11 @@ import blackjack.domain.gamer.Dealer
 import blackjack.domain.gamer.Gamers
 import blackjack.domain.gamer.Player
 import blackjack.domain.result.PlayerResult
+import blackjack.domain.result.ResultType.LOSE
+import blackjack.domain.result.ResultType.PUSH
+import blackjack.domain.result.ResultType.WIN
 import blackjack.domain.state.Bust
 import blackjack.domain.state.Deal
-import blackjack.domain.state.result.Lose
-import blackjack.domain.state.result.Push
-import blackjack.domain.state.result.Win
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -28,14 +28,14 @@ class PlayerResultTest {
         val playerCards = createCardsFixture(Denomination.JACK, Denomination.ACE)
 
         val player = Player.init("tommy", Deal(playerCards))
-        val gamers = Gamers.from(listOf(dealer, player))
+        val gamers = Gamers.from(dealer, listOf(player))
 
         // Act
         val sut = PlayerResult(gamers)
         val playersResult = sut.judgePlayerResult()
 
         // Assert
-        assertThat(playersResult.first().state).isInstanceOf(Push::class.java)
+        assertThat(playersResult.first().result).isEqualTo(PUSH)
     }
 
     @Test
@@ -46,14 +46,14 @@ class PlayerResultTest {
         val playerCards = createCardsFixture(Denomination.JACK, Denomination.ACE)
 
         val player = Player.init("tommy", Deal(playerCards))
-        val gamers = Gamers.from(listOf(dealer, player))
+        val gamers = Gamers.from(dealer, listOf(player))
 
         // Act
         val sut = PlayerResult(gamers)
         val playersResult = sut.judgePlayerResult()
 
         // Assert
-        assertThat(playersResult.first().state).isInstanceOf(Win::class.java)
+        assertThat(playersResult.first().result).isEqualTo(WIN)
     }
 
     @Test
@@ -70,14 +70,14 @@ class PlayerResultTest {
         )
 
         val player = Player.init("tommy", Deal(playerCards))
-        val gamers = Gamers.from(listOf(dealer, player))
+        val gamers = Gamers.from(dealer, listOf(player))
 
         // Act
         val sut = PlayerResult(gamers)
         val playersResult = sut.judgePlayerResult()
 
         // Assert
-        assertThat(playersResult.first().state).isInstanceOf(Win::class.java)
+        assertThat(playersResult.first().result).isEqualTo(WIN)
     }
 
     @Test
@@ -99,14 +99,14 @@ class PlayerResultTest {
         val playerCards = createCardsFixture(Denomination.FIVE, Denomination.SIX)
 
         val player = Player.init("tommy", Deal(playerCards))
-        val gamers = Gamers.from(listOf(dealer, player))
+        val gamers = Gamers.from(dealer, listOf(player))
 
         // Act
         val sut = PlayerResult(gamers)
         val playersResult = sut.judgePlayerResult()
 
         // Assert
-        assertThat(playersResult.first().state).isInstanceOf(Win::class.java)
+        assertThat(playersResult.first().result).isEqualTo(WIN)
     }
 
     @Test
@@ -117,14 +117,14 @@ class PlayerResultTest {
         val playerCards = createCardsFixture(Denomination.FIVE, Denomination.SIX)
 
         val player = Player.init("tommy", Deal(playerCards))
-        val gamers = Gamers.from(listOf(dealer, player))
+        val gamers = Gamers.from(dealer, listOf(player))
 
         // Act
         val sut = PlayerResult(gamers)
         val playersResult = sut.judgePlayerResult()
 
         // Assert
-        assertThat(playersResult.first().state).isInstanceOf(Win::class.java)
+        assertThat(playersResult.first().result).isEqualTo(WIN)
     }
 
     @Test
@@ -135,14 +135,14 @@ class PlayerResultTest {
         val playerCards = createCardsFixture(Denomination.FIVE, Denomination.FIVE)
 
         val player = Player.init("tommy", Deal(playerCards))
-        val gamers = Gamers.from(listOf(dealer, player))
+        val gamers = Gamers.from(dealer, listOf(player))
 
         // Act
         val sut = PlayerResult(gamers)
         val playersResult = sut.judgePlayerResult()
 
         // Assert
-        assertThat(playersResult.first().state).isInstanceOf(Lose::class.java)
+        assertThat(playersResult.first().result).isEqualTo(LOSE)
     }
 
     private fun createCardsFixture(firstDenomination: Denomination, secondDenomination: Denomination): Cards {

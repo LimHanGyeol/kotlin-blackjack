@@ -2,6 +2,7 @@ package blackjack.domain.gamer
 
 import blackjack.domain.deck.Cards
 import blackjack.domain.deck.Deck
+import blackjack.domain.result.ResultType
 import blackjack.domain.state.Bust
 import blackjack.domain.state.Stand
 import blackjack.domain.state.State
@@ -10,6 +11,7 @@ import blackjack.exception.InvalidPlayerNameException
 abstract class Gamer(
     val name: String,
     val state: State,
+    var result: ResultType? = null,
 ) {
     val cards: Cards
         get() = state.cards
@@ -45,7 +47,7 @@ abstract class Gamer(
 
     fun isStand(): Boolean = state is Stand
 
-    fun result(): String = state.toString()
+    fun result(): String = result.toString()
 
     abstract fun prepare(deck: Deck): Gamer
     abstract fun play(deck: Deck): Gamer
