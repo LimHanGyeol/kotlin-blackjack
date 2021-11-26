@@ -4,10 +4,10 @@ import blackjack.domain.deck.Cards
 import blackjack.domain.deck.Deck
 import blackjack.exception.NotExistDealerException
 
-class Gamers private constructor(
-    value: List<Gamer>,
+@JvmInline
+value class Gamers private constructor(
+    val value: List<Gamer>,
 ) {
-    val value = value.toList()
 
     init {
         if (value.first() !is Dealer) {
@@ -44,7 +44,8 @@ class Gamers private constructor(
             return Gamers(gamers)
         }
 
-        fun from(gamers: List<Gamer>): Gamers {
+        fun from(dealer: Dealer, players: List<Player>): Gamers {
+            val gamers: List<Gamer> = listOf(dealer).plus(players.toList())
             return Gamers(gamers)
         }
     }
