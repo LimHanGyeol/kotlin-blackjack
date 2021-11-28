@@ -1,6 +1,7 @@
 package blackjack.view
 
 import blackjack.domain.gamer.Gamer
+import blackjack.domain.state.State
 
 class InputView {
 
@@ -14,7 +15,18 @@ class InputView {
             return readLine()!!.split(DELIMITER)
         }
 
-        fun inputCardSign(gamer: Gamer): String {
+        fun inputPlayable(player: Gamer): Boolean {
+            if (player.isFinished()) {
+                return false
+            }
+            val playable = inputCardSign(player)
+            if (playable == State.FINISHED_SIGN) {
+                return false
+            }
+            return playable == State.CAN_PLAY
+        }
+
+        private fun inputCardSign(gamer: Gamer): String {
             println("\n${gamer.name}$INPUT_CARD_SIGN")
             return readLine()!!
         }
