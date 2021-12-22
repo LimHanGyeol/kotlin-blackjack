@@ -15,6 +15,11 @@ class InputView {
             return readLine()!!.split(DELIMITER)
         }
 
+        fun inputBettingMoney(playerName: String): Int {
+            println("${playerName}의 베팅 금액은?")
+            return readLine()!!.toInt()
+        }
+
         fun inputPlayable(player: Gamer): Boolean {
             if (player.isFinished()) {
                 return false

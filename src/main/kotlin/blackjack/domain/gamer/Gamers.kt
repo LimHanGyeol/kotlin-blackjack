@@ -37,9 +37,8 @@ value class Gamers private constructor(
     companion object {
         private const val PLAYER_INDEX = 1
 
-        fun init(playerNames: List<String>): Gamers {
+        fun init(players: List<Gamer>): Gamers {
             val dealer = Dealer.from(Cards())
-            val players = playerNames.map { Player.of(it.trim(), Cards()) }
             val gamers = listOf(dealer).plus(players)
             return Gamers(gamers)
         }

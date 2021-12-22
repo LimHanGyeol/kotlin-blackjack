@@ -15,13 +15,13 @@ class DealerResultTest {
     @DisplayName("플레이어의 결과들을 기반으로 딜러의 결과를 계산한다")
     fun `sut returns correctly`() {
         // Arrange
-        val tommy = Player.of("tommy", Cards())
+        val tommy = Player.of("tommy", Cards(), 10_000)
         tommy.judgeResult(WIN)
 
-        val pobi = Player.of("pobi", Cards())
+        val pobi = Player.of("pobi", Cards(), 20_000)
         pobi.judgeResult(WIN)
 
-        val jason = Player.of("jason", Cards())
+        val jason = Player.of("jason", Cards(), 20_000)
         jason.judgeResult(LOSE)
 
         val players = listOf(tommy, pobi, jason)

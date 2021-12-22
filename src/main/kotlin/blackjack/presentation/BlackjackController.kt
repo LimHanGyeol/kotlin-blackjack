@@ -1,8 +1,11 @@
 package blackjack.presentation
 
 import blackjack.domain.BlackjackGame
+import blackjack.domain.deck.Cards
 import blackjack.domain.deck.Deck
+import blackjack.domain.gamer.Gamer
 import blackjack.domain.gamer.Gamers
+import blackjack.domain.gamer.Player
 import blackjack.view.InputView
 import blackjack.view.OutputView
 
@@ -26,6 +29,14 @@ class BlackjackController {
 
     private fun initGamers(): Gamers {
         val inputPlayerNames = InputView.inputPlayers()
-        return Gamers.init(inputPlayerNames)
+
+        val players = mutableListOf<Gamer>()
+        for (playerName in inputPlayerNames) {
+            val inputBettingMoney = InputView.inputBettingMoney(playerName)
+            val player = Player.of(playerName.trim(), Cards(), inputBettingMoney)
+            players.add(player)
+        }
+
+        return Gamers.init(players)
     }
 }

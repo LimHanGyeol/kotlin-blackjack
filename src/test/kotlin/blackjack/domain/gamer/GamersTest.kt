@@ -1,5 +1,6 @@
 package blackjack.domain.gamer
 
+import blackjack.domain.deck.Cards
 import blackjack.domain.deck.Deck
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -12,10 +13,14 @@ class GamersTest {
     @DisplayName("n명의 게이머는 딜러와 플레이어로 구성된다")
     fun `sut returns gamers`() {
         // Arrange
-        val playerNames = listOf("tommy", "pobi", "jason")
+        val players = listOf<Gamer>(
+            Player.of("tommy", Cards(), 10_000),
+            Player.of("pobi", Cards(), 20_000),
+            Player.of("jason", Cards(), 20_000),
+        )
 
         // Act
-        val sut = Gamers.init(playerNames)
+        val sut = Gamers.init(players)
 
         // Assert
         assertThat(sut.value).hasSize(4)
@@ -28,8 +33,13 @@ class GamersTest {
     @DisplayName("각 게이머들은 2장의 카드를 지급받는다")
     fun `sut returns prepared gamers`() {
         // Arrange
-        val playerNames = listOf("tommy", "pobi", "jason")
-        val sut = Gamers.init(playerNames)
+        val players = listOf<Gamer>(
+            Player.of("tommy", Cards(), 10_000),
+            Player.of("pobi", Cards(), 20_000),
+            Player.of("jason", Cards(), 20_000),
+        )
+
+        val sut = Gamers.init(players)
 
         assertThat(sut.getDealer().cards.value).hasSize(0)
         assertThat(sut.getPlayers().first().cards.value).hasSize(0)

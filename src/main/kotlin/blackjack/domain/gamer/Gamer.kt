@@ -12,6 +12,7 @@ abstract class Gamer(
     val name: String,
     val state: State,
     var result: ResultType? = null,
+    val bettingMoney: Int = 0,
 ) {
     val cards: Cards
         get() = state.cards

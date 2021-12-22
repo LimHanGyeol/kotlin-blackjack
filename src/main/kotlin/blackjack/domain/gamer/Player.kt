@@ -11,8 +11,9 @@ import blackjack.domain.state.State
 class Player private constructor(
     name: String,
     state: State,
+    bettingMoney: Int = 0,
     result: ResultType? = null,
-) : Gamer(name, state, result) {
+) : Gamer(name, state, result, bettingMoney) {
 
     init {
         validateName(name)
@@ -48,8 +49,8 @@ class Player private constructor(
     fun isTwentyOne(): Boolean = cards.isTwentyOne()
 
     companion object {
-        fun of(name: String, cards: Cards): Player {
-            return Player(name, FirstDraw(cards))
+        fun of(name: String, cards: Cards, bettingMoney: Int): Player {
+            return Player(name, FirstDraw(cards), bettingMoney)
         }
 
         fun init(name: String, state: State): Player {

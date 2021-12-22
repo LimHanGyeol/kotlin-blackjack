@@ -20,7 +20,7 @@ class PlayerTest {
         val name = "tommy"
 
         // Act
-        val sut = Player.of(name, Cards())
+        val sut = Player.of(name, Cards(), 10_000)
 
         // Assert
         assertThat(sut.name).isEqualTo("tommy")
@@ -33,14 +33,14 @@ class PlayerTest {
         val name = ""
 
         // Act, Assert
-        assertThrows<InvalidPlayerNameException> { Player.of(name, Cards()) }
+        assertThrows<InvalidPlayerNameException> { Player.of(name, Cards(), 10_000) }
     }
 
     @Test
     @DisplayName("플레이어가 카드 2장을 뽑고 준비를 완료한다")
     fun `sut returns prepared`() {
         // Arrange
-        val player = Player.of("tommy", Cards())
+        val player = Player.of("tommy", Cards(), 10_000)
         val deck = Deck.init()
 
         // Act
@@ -55,7 +55,7 @@ class PlayerTest {
     @DisplayName("플레이어가 블랙잭을 진행한다")
     fun `sut returns play result`() {
         // Arrange
-        val player = Player.of("tommy", Cards())
+        val player = Player.of("tommy", Cards(), 10_000)
         val deck = Deck.init()
 
         val sut = player.prepare(deck)
@@ -72,7 +72,7 @@ class PlayerTest {
     @DisplayName("플레이어의 진행여부가 true이면 게임을 진행할 수 있다")
     fun `sut returns progressed player`() {
         // Arrange
-        val player = Player.of("tommy", Cards())
+        val player = Player.of("tommy", Cards(), 10_000)
         val deck = Deck.init()
         val playable = true
 
@@ -89,7 +89,7 @@ class PlayerTest {
     @DisplayName("플레이어의 진행여부가 false이면 stand로 게임을 종료한다.")
     fun `sut returns stand player`() {
         // Arrange
-        val player = Player.of("tommy", Cards())
+        val player = Player.of("tommy", Cards(), 10_000)
         val deck = Deck.init()
         val playable = false
 
