@@ -16,12 +16,10 @@ value class Gamers private constructor(
     }
 
     fun prepare(deck: Deck): Gamers {
-        val preparedGamers = mutableListOf<Gamer>()
-        for (gamer in value) {
-            val preparedGamer = gamer.prepare(deck)
-            preparedGamers.add(preparedGamer)
+        val gamers = value.map { gamer ->
+            gamer.prepare(deck)
         }
-        return Gamers(preparedGamers)
+        return Gamers(gamers)
     }
 
     fun getDealer(): Dealer {
@@ -31,7 +29,7 @@ value class Gamers private constructor(
 
     fun getPlayers(): List<Player> {
         return value.subList(PLAYER_INDEX, value.size)
-            .map { Player.init(it.name, it.state) }
+            .map { Player.init(it.name, it.state, it.amount) }
     }
 
     companion object {

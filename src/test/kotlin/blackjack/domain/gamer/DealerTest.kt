@@ -27,6 +27,7 @@ class DealerTest {
 
         // Assert
         assertThat(sut.name).isEqualTo("딜러")
+        assertThat(sut.amount.value).isEqualTo(Amount.ZERO.value)
     }
 
     @Test
@@ -113,7 +114,7 @@ class DealerTest {
     fun `sut returns blackjack game result win`() {
         // Arrange
         val playerCards = createCardsFixture(Denomination.SIX, Denomination.SIX)
-        val player = Player.init("tommy", Deal(playerCards))
+        val player = Player.init("tommy", Deal(playerCards), Amount.ZERO)
 
         // Act
         val sut = Dealer.from(createCardsFixture(Denomination.TEN, Denomination.EIGHT))
@@ -128,7 +129,7 @@ class DealerTest {
     fun `sut returns blackjack game result push`() {
         // Arrange
         val playerCards = createCardsFixture(Denomination.TEN, Denomination.QUEEN)
-        val player = Player.init("tommy", Deal(playerCards))
+        val player = Player.init("tommy", Deal(playerCards), Amount.ZERO)
 
         // Act
         val sut = Dealer.from(createCardsFixture(Denomination.TEN, Denomination.KING))
@@ -143,7 +144,7 @@ class DealerTest {
     fun `sut returns blackjack game lose`() {
         // Arrange
         val playerCards = createCardsFixture(Denomination.TEN, Denomination.ACE)
-        val player = Player.init("tommy", Deal(playerCards))
+        val player = Player.init("tommy", Deal(playerCards), Amount.ZERO)
 
         // Act
         val sut = Dealer.from(createCardsFixture(Denomination.TEN, Denomination.EIGHT))

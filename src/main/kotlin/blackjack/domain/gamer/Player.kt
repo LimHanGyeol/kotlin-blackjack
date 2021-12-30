@@ -11,9 +11,9 @@ import blackjack.domain.state.State
 class Player private constructor(
     name: String,
     state: State,
-    bettingMoney: Int = 0,
+    amount: Amount,
     result: ResultType? = null,
-) : Gamer(name, state, result, bettingMoney) {
+) : Gamer(name, state, amount, result) {
 
     init {
         validateName(name)
@@ -22,22 +22,22 @@ class Player private constructor(
     override fun prepare(deck: Deck): Player {
         val completedFirstDraw = draw(deck, state)
         val completedSecondDraw = draw(deck, completedFirstDraw)
-        return Player(name, completedSecondDraw)
+        return Player(name, completedSecondDraw, this.amount)
     }
 
     fun progress(playable: Boolean, deck: Deck): Player {
         if (isStand(playable)) {
-            return Player(name, Stand(cards))
+            return Player(name, Stand(cards), this.amount)
         }
         return play(deck)
     }
 
     override fun play(deck: Deck): Player {
         if (state.cards.isBlackjack()) {
-            return Player(name, Blackjack(cards))
+            return Player(name, Blackjack(cards), this.amount)
         }
         val currentState = draw(deck, state)
-        return Player(name, currentState)
+        return Player(name, currentState, this.amount)
     }
 
     fun judgeResult(result: ResultType?) {
@@ -50,11 +50,11 @@ class Player private constructor(
 
     companion object {
         fun of(name: String, cards: Cards, bettingMoney: Int): Player {
-            return Player(name, FirstDraw(cards), bettingMoney)
+            return Player(name, FirstDraw(cards), Amount.from(bettingMoney))
         }
 
-        fun init(name: String, state: State): Player {
-            return Player(name, state)
+        fun init(name: String, state: State, amount: Amount): Player {
+            return Player(name, state, amount)
         }
     }
 }

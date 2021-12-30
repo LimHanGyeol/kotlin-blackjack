@@ -11,11 +11,10 @@ import blackjack.exception.InvalidPlayerNameException
 abstract class Gamer(
     val name: String,
     val state: State,
+    val amount: Amount,
     var result: ResultType? = null,
-    val bettingMoney: Int = 0,
 ) {
-    val cards: Cards
-        get() = state.cards
+    val cards: Cards = state.cards
 
     protected fun validateName(name: String) {
         if (name.isEmpty()) {

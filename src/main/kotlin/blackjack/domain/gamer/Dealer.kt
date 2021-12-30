@@ -15,7 +15,7 @@ import blackjack.domain.state.State
 class Dealer private constructor(
     name: String,
     state: State,
-) : Gamer(name, state) {
+) : Gamer(name, state, Amount.ZERO) {
 
     init {
         validateName(name)

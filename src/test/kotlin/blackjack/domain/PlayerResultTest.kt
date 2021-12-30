@@ -4,6 +4,7 @@ import blackjack.domain.deck.Card
 import blackjack.domain.deck.Cards
 import blackjack.domain.deck.Denomination
 import blackjack.domain.deck.Suit
+import blackjack.domain.gamer.Amount
 import blackjack.domain.gamer.Dealer
 import blackjack.domain.gamer.Gamers
 import blackjack.domain.gamer.Player
@@ -27,7 +28,7 @@ class PlayerResultTest {
         val dealer = Dealer.from(createCardsFixture(Denomination.ACE, Denomination.QUEEN))
         val playerCards = createCardsFixture(Denomination.JACK, Denomination.ACE)
 
-        val player = Player.init("tommy", Deal(playerCards))
+        val player = Player.init("tommy", Deal(playerCards), Amount.ZERO)
         val gamers = Gamers.from(dealer, listOf(player))
 
         // Act
@@ -45,7 +46,7 @@ class PlayerResultTest {
         val dealer = Dealer.from(createCardsFixture(Denomination.JACK, Denomination.QUEEN))
         val playerCards = createCardsFixture(Denomination.JACK, Denomination.ACE)
 
-        val player = Player.init("tommy", Deal(playerCards))
+        val player = Player.init("tommy", Deal(playerCards), Amount.ZERO)
         val gamers = Gamers.from(dealer, listOf(player))
 
         // Act
@@ -69,7 +70,7 @@ class PlayerResultTest {
             )
         )
 
-        val player = Player.init("tommy", Deal(playerCards))
+        val player = Player.init("tommy", Deal(playerCards), Amount.ZERO)
         val gamers = Gamers.from(dealer, listOf(player))
 
         // Act
@@ -98,7 +99,7 @@ class PlayerResultTest {
         )
         val playerCards = createCardsFixture(Denomination.FIVE, Denomination.SIX)
 
-        val player = Player.init("tommy", Deal(playerCards))
+        val player = Player.init("tommy", Deal(playerCards), Amount.ZERO)
         val gamers = Gamers.from(dealer, listOf(player))
 
         // Act
@@ -116,7 +117,7 @@ class PlayerResultTest {
         val dealer = Dealer.from(createCardsFixture(Denomination.FIVE, Denomination.FIVE))
         val playerCards = createCardsFixture(Denomination.FIVE, Denomination.SIX)
 
-        val player = Player.init("tommy", Deal(playerCards))
+        val player = Player.init("tommy", Deal(playerCards), Amount.ZERO)
         val gamers = Gamers.from(dealer, listOf(player))
 
         // Act
@@ -134,7 +135,7 @@ class PlayerResultTest {
         val dealer = Dealer.from(createCardsFixture(Denomination.FIVE, Denomination.SIX))
         val playerCards = createCardsFixture(Denomination.FIVE, Denomination.FIVE)
 
-        val player = Player.init("tommy", Deal(playerCards))
+        val player = Player.init("tommy", Deal(playerCards), Amount.ZERO)
         val gamers = Gamers.from(dealer, listOf(player))
 
         // Act

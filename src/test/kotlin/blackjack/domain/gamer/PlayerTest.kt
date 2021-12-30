@@ -24,6 +24,7 @@ class PlayerTest {
 
         // Assert
         assertThat(sut.name).isEqualTo("tommy")
+        assertThat(sut.amount.value).isEqualTo(10_000.0)
     }
 
     @Test
